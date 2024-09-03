@@ -2,73 +2,92 @@
 decimal balance = 2005.50m;
 
 Parol:
-Console.Write("Parolunuzu daxil edin: ");
-string Parol = Console.ReadLine(); //Parol
-
-if (Parol == password)
-{
-    Console.Clear();
-
-    Console.WriteLine($"Balansınız {balance}");
 
 
-Secim:
-    Console.Write("Nagdlaşdırma yoxsa Medaxil? (N/M): ");
-    char Secim = Console.ReadLine()[0];
 
-    if (Secim == 'N' || Secim == 'n')
+    Console.Write("Parolunuzu daxil edin: ");
+    string Parol = Console.ReadLine();
+
+    if (Parol.All(char.IsDigit))
     {
-        Console.Clear();
+        
 
-        Console.WriteLine($"Balansınız {balance}");
-
-        Console.Write("Meblegi daxil edin: ");
-        decimal Balance = decimal.Parse(Console.ReadLine());
-
-        if (Balance <= balance)
+        if (Parol == password)
         {
-            balance -= Balance;
             Console.Clear();
-            Console.WriteLine($"Cari {balance}");
+
+            Console.WriteLine($"Balansınız {balance}");
+
+
+        Secim:
+            Console.Write("Nagdlaşdırma yoxsa Medaxil? (N/M): ");
+            char Secim = Console.ReadLine()[0];
+
+            if (Secim == 'N' || Secim == 'n')
+            {
+                Console.Clear();
+
+                Console.WriteLine($"Balansınız {balance}");
+
+                Console.Write("Meblegi daxil edin: ");
+                decimal Balance = decimal.Parse(Console.ReadLine());
+
+                if (Balance <= balance)
+                {
+                    balance -= Balance;
+                    Console.Clear();
+                    Console.WriteLine($"Cari {balance}");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Kifayet qeder vesait yoxdur!");
+                    goto Secim;
+                }
+
+            }
+
+
+            else if (Secim == 'M' || Secim == 'm')
+            {
+                Console.Clear();
+
+                Console.WriteLine($"Balansınız {balance}");
+
+                Console.Write("Meblegi daxil edin: ");
+                decimal Medaxil = decimal.Parse(Console.ReadLine());
+
+                Console.Clear();
+
+                balance += Medaxil;
+                Console.WriteLine($"Cari balans {balance}");
+            }
+
+            else
+            {
+                Console.Clear();
+                Console.WriteLine("Duzgun secim edin!");
+                goto Secim;
+            }
         }
         else
         {
             Console.Clear();
-            Console.WriteLine("Kifayet qeder vesait yoxdur!");
+            Console.WriteLine("Kod yanlışdır!");
+            goto Parol;
+
         }
 
     }
-
-
-    else if (Secim == 'M' || Secim == 'm')
-    {
-        Console.Clear();
-
-        Console.WriteLine($"Balansınız {balance}");
-
-        Console.Write("Meblegi daxil edin: ");
-        decimal Medaxil = decimal.Parse(Console.ReadLine());
-
-        Console.Clear();
-
-        balance += Medaxil;
-        Console.WriteLine($"Cari balans {balance}");
-    }
-
     else
     {
         Console.Clear();
-        Console.WriteLine("Duzgun secim edin!");
-        goto Secim;
-    }
-}
-else
-{
-    Console.Clear();
-    Console.WriteLine("Kod yanlışdır!");
-    goto Parol;
+        Console.WriteLine("Parol reqemlerden ibaret olmalidir!");
+        goto Parol;
+    }        
 
-}
+
+
 
 Thread.Sleep(2000);
 
