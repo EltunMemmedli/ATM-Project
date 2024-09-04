@@ -28,22 +28,36 @@ Parol:
                 Console.Clear();
 
                 Console.WriteLine($"Balansınız {balance}");
-
+                mebleg:
                 Console.Write("Meblegi daxil edin: ");
-                decimal Balance = decimal.Parse(Console.ReadLine());
+                string input = Console.ReadLine();
+                decimal Balance;   
 
-                if (Balance <= balance)
+                if (!decimal.TryParse(input, out Balance))
                 {
-                    balance -= Balance;
                     Console.Clear();
-                    Console.WriteLine($"Cari {balance}");
+                    Console.WriteLine("Duzgun reqem daxil edin:");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    goto mebleg;
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Kifayet qeder vesait yoxdur!");
-                    goto Secim;
-                }
+                    if (Balance <= balance)
+                    {
+                        balance -= Balance;
+                        Console.Clear();
+                        Console.WriteLine($"Cari {balance}");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Kifayet qeder vesait yoxdur!");
+                        goto Secim;
+                    }
+            }
+
+
 
             }
 
@@ -53,14 +67,27 @@ Parol:
                 Console.Clear();
 
                 Console.WriteLine($"Balansınız {balance}");
-
+            mebleg:
                 Console.Write("Meblegi daxil edin: ");
-                decimal Medaxil = decimal.Parse(Console.ReadLine());
+                string input = Console.ReadLine();
+                 decimal Medaxil;
 
-                Console.Clear();
+                if(!decimal.TryParse(input, out Medaxil))
+                {
+                    Console.Clear();
+                    Console.WriteLine("Duzgun reqem daxil edin:");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    goto mebleg;
+                }
+                else
+                {
+                    Console.Clear();
 
-                balance += Medaxil;
-                Console.WriteLine($"Cari balans {balance}");
+                    balance += Medaxil;
+                    Console.WriteLine($"Cari balans {balance}");
+                }
+
             }
 
             else
