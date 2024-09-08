@@ -7,8 +7,10 @@ Parol:
 
     Console.Write("Parolunuzu daxil edin: ");
     string Parol = Console.ReadLine();
+    int parol;
 
-    if (Parol.All(char.IsDigit))
+    
+    if (int.TryParse(Parol, out parol) && parol > 0)
     {
         
 
@@ -21,9 +23,9 @@ Parol:
 
         Secim:
             Console.Write("Nagdlaşdırma yoxsa Medaxil? (N/M): ");
-            char Secim = Console.ReadLine()[0];
+            string Secim = Console.ReadLine();
 
-            if (Secim == 'N' || Secim == 'n')
+            if (Secim == "N" || Secim == "n")
             {
                 Console.Clear();
 
@@ -33,15 +35,7 @@ Parol:
                 string input = Console.ReadLine();
                 decimal Balance;   
 
-                if (!decimal.TryParse(input, out Balance))
-                {
-                    Console.Clear();
-                    Console.WriteLine("Duzgun reqem daxil edin:");
-                    Thread.Sleep(2000);
-                    Console.Clear();
-                    goto mebleg;
-                }
-                else
+                if (decimal.TryParse(input, out Balance) && Balance > 0)
                 {
                     if (Balance <= balance)
                     {
@@ -55,24 +49,34 @@ Parol:
                         Console.WriteLine("Kifayet qeder vesait yoxdur!");
                         goto Secim;
                     }
-            }
+
+
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Duzgun reqem daxil edin:");
+                    Thread.Sleep(2000);
+                    Console.Clear();
+                    goto mebleg;
+                }
 
 
 
             }
 
 
-            else if (Secim == 'M' || Secim == 'm')
+            else if (Secim == "M" || Secim == "m")
             {
                 Console.Clear();
 
                 Console.WriteLine($"Balansınız {balance}");
-            mebleg:
+                mebleg:
                 Console.Write("Meblegi daxil edin: ");
                 string input = Console.ReadLine();
-                 decimal Medaxil;
+                decimal Medaxil;
 
-                if(!decimal.TryParse(input, out Medaxil))
+                if(!decimal.TryParse(input, out Medaxil) && Medaxil > 0)
                 {
                     Console.Clear();
                     Console.WriteLine("Duzgun reqem daxil edin:");
@@ -90,12 +94,21 @@ Parol:
 
             }
 
-            else
+            else if (string.IsNullOrWhiteSpace(Secim))
             {
                 Console.Clear();
                 Console.WriteLine("Duzgun secim edin!");
                 goto Secim;
             }
+            else
+            {
+
+                Console.Clear();
+                Console.WriteLine("Duzgun secim edin!");
+                goto Secim;
+
+            }
+
         }
         else
         {
@@ -109,7 +122,7 @@ Parol:
     else
     {
         Console.Clear();
-        Console.WriteLine("Parol reqemlerden ibaret olmalidir!");
+        Console.WriteLine("Parolu duzgun yazin!");
         goto Parol;
     }        
 
